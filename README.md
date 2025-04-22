@@ -1,16 +1,23 @@
-# WC Order Notification
+# WooCommerce Duplicate Order Notification Plugin
 
-A WooCommerce plugin that notifies users if they attempt to order products that are already in open orders or have been ordered within the last three months.
+A WordPress plugin for WooCommerce that helps prevent duplicate orders by notifying users when they attempt to purchase products that are either in pending orders or have been ordered within the last three months.
+
+## Overview
+
+This plugin enhances the WooCommerce checkout experience by:
+- Detecting products that exist in open orders (pending, on-hold, processing)
+- Identifying products ordered within the last 3 months
+- Displaying a modern, user-friendly notification with direct links to existing orders
+- Allowing customers to make an informed decision to proceed if needed
 
 ## Features
 
-- Checks for duplicate products in:
-  - Open orders (pending, on-hold, processing)
-  - Orders completed within the last 3 months
 - Modern modal notification using Tailwind CSS
-- Links to existing orders (opens in new tabs)
+- Direct links to existing orders (opens in new tabs)
 - Option to ignore and proceed with the order
 - Fully responsive design
+- Automatic duplicate detection during checkout
+- Configurable time period for order history checking
 
 ## Requirements
 
