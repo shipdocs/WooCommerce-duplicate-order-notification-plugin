@@ -1,12 +1,12 @@
 <?php
 /**
- * Plugin Name: WC Order Notification
- * Plugin URI:  https://example.com/plugins/wc-order-notification
- * Description: Notifies users if they order a product already in an open order or ordered in the last three months, with option to ignore and links to existing orders.
+ * Plugin Name: Duplicate Order Prevention for WooCommerce
+ * Plugin URI:  https://github.com/shipdocs/WooCommerce-duplicate-order-notification-plugin
+ * Description: Helps prevent duplicate purchases by notifying customers when they attempt to order products that are already in pending orders or recently purchased.
  * Version:     1.0.0
  * Author:      Your Name
  * Author URI:  https://example.com
- * Text Domain: wc-order-notification
+ * Text Domain: duplicate-order-prevention
  * Domain Path: /languages
  *
  * Requires at least: 5.0
@@ -14,16 +14,16 @@
  * WC requires at least: 3.0
  * WC tested up to: 7.0
  *
- * @package WC_Order_Notification
+ * @package Duplicate_Order_Prevention
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly.
 }
 
-if ( ! class_exists( 'WC_Order_Notification' ) ) :
+if ( ! class_exists( 'Duplicate_Order_Prevention' ) ) :
 
-final class WC_Order_Notification {
+final class Duplicate_Order_Prevention {
 
     /**
      * Plugin version.
@@ -35,21 +35,21 @@ final class WC_Order_Notification {
     /**
      * Singleton instance.
      *
-     * @var WC_Order_Notification
+     * @var Duplicate_Order_Prevention
      */
-    protected static $_instance = null;
+    private static $instance = null;
 
     /**
-     * Main WC_Order_Notification Instance.
+     * Main Duplicate_Order_Prevention Instance.
      *
-     * @return WC_Order_Notification
+     * @return Duplicate_Order_Prevention
      */
     public static function instance() {
-        if ( is_null( self::$_instance ) ) {
-            self::$_instance = new self();
-            self::$_instance->init_hooks();
+        if ( is_null( self::$instance ) ) {
+            self::$instance = new self();
+            self::$instance->init_hooks();
         }
-        return self::$_instance;
+        return self::$instance;
     }
 
     /**
@@ -80,7 +80,7 @@ final class WC_Order_Notification {
      * Load plugin textdomain.
      */
     public function load_textdomain() {
-        load_plugin_textdomain( 'wc-order-notification', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+        load_plugin_textdomain( 'duplicate-order-prevention', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
     }
 
     /**
@@ -88,7 +88,7 @@ final class WC_Order_Notification {
      */
     public function check_woocommerce_active() {
         if ( ! class_exists( 'WooCommerce' ) ) {
-            echo '<div class="error"><p><strong>' . esc_html__( 'WC Order Notification requires WooCommerce to be installed and active.', 'wc-order-notification' ) . '</strong></p></div>';
+            echo '<div class="error"><p><strong>' . esc_html__( 'Duplicate Order Prevention for WooCommerce requires WooCommerce to be installed and active.', 'duplicate-order-prevention' ) . '</strong></p></div>';
         }
     }
 
@@ -104,23 +104,23 @@ final class WC_Order_Notification {
      * Initialize classes.
      */
     public function init_classes() {
-        if ( class_exists( 'WC_Duplicate_Checker' ) && class_exists( 'WC_Notification_Handler' ) ) {
-            $duplicate_checker = new WC_Duplicate_Checker();
-            $notification_handler = new WC_Notification_Handler( $duplicate_checker );
+        if ( class_exists( 'Duplicate_Order_Checker' ) && class_exists( 'Duplicate_Order_Handler' ) ) {
+            $duplicate_checker = new Duplicate_Order_Checker();
+            $notification_handler = new Duplicate_Order_Handler( $duplicate_checker );
         }
     }
 }
 
 /**
- * Returns the main instance of WC_Order_Notification.
+ * Returns the main instance of Duplicate_Order_Prevention.
  *
- * @return WC_Order_Notification
+ * @return Duplicate_Order_Prevention
  */
-function WC_Order_Notification() {
-    return WC_Order_Notification::instance();
+function Duplicate_Order_Prevention() {
+    return Duplicate_Order_Prevention::instance();
 }
 
 // Initialize the plugin.
-WC_Order_Notification();
+Duplicate_Order_Prevention();
 
 endif;

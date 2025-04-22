@@ -4,23 +4,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Class WC_Notification_Handler
+ * Class Duplicate_Order_Handler
  *
  * Handles displaying notifications on checkout for duplicate products.
  */
-class WC_Notification_Handler {
+class Duplicate_Order_Handler {
 
     /**
      * Duplicate checker instance.
      *
-     * @var WC_Duplicate_Checker
+     * @var Duplicate_Order_Checker
      */
     private $duplicate_checker;
 
     /**
      * Constructor.
      *
-     * @param WC_Duplicate_Checker $duplicate_checker
+     * @param Duplicate_Order_Checker $duplicate_checker Duplicate checker instance.
      */
     public function __construct( $duplicate_checker ) {
         $this->duplicate_checker = $duplicate_checker;
@@ -38,21 +38,18 @@ class WC_Notification_Handler {
             return;
         }
 
-        // Enqueue Tailwind CSS via CDN.
-        wp_enqueue_style( 'tailwind-cdn', 'https://cdn.tailwindcss.com', array(), null );
-
-        // Enqueue custom CSS.
+        // Enqueue custom CSS (includes bundled Tailwind utilities).
         wp_enqueue_style(
-            'wc-order-notification-css',
-            plugin_dir_url( __FILE__ ) . '../assets/css/wc-order-notification.css',
+            'duplicate-order-prevention-css',
+            plugin_dir_url( __FILE__ ) . '../assets/css/duplicate-order-prevention.css',
             array(),
             '1.0.0'
         );
 
         // Enqueue custom JS.
         wp_enqueue_script(
-            'wc-order-notification-js',
-            plugin_dir_url( __FILE__ ) . '../assets/js/wc-order-notification.js',
+            'duplicate-order-prevention-js',
+            plugin_dir_url( __FILE__ ) . '../assets/js/duplicate-order-prevention.js',
             array( 'jquery' ),
             '1.0.0',
             true
@@ -77,7 +74,7 @@ class WC_Notification_Handler {
         $cart_items = $cart->get_cart();
 
         // Check if user has chosen to ignore duplicates this session.
-        if ( isset( $_POST['wc_order_notification_ignore'] ) && 'yes' === sanitize_text_field( wp_unslash( $_POST['wc_order_notification_ignore'] ) ) ) {
+        if ( isset( $_POST['duplicate_order_prevention_ignore'] ) && 'yes' === sanitize_text_field( wp_unslash( $_POST['duplicate_order_prevention_ignore'] ) ) ) {
             // User chose to ignore, allow checkout.
             return;
         }
@@ -86,17 +83,22 @@ class WC_Notification_Handler {
 
         if ( ! empty( $duplicates ) ) {
             // Store duplicates in session for use in modal.
-            WC()->session->set( 'wc_order_notification_duplicates', $duplicates );
+            WC()->session->set( 'duplicate_order_prevention_duplicates', $duplicates );
 
             // Add a WooCommerce notice to trigger modal via JS.
-            wc_add_notice( __( 'Duplicate products detected in your order. Please review the notification.', 'wc-order-notification' ), 'notice' );
+            wc_add_notice( 
+                __( 'Duplicate products detected in your order. Please review the notification.', 'duplicate-order-prevention' ),
+                'notice'
+            );
 
             // Prevent checkout from proceeding until user ignores or confirms.
-            // We do not block checkout here to allow ignoring, but we add a validation error to stop submission.
-            wc_add_notice( __( 'Please review the duplicate order notification below.', 'wc-order-notification' ), 'error' );
+            wc_add_notice( 
+                __( 'Please review the duplicate order notification below.', 'duplicate-order-prevention' ),
+                'error'
+            );
         } else {
             // Clear duplicates from session if none found.
-            WC()->session->__unset( 'wc_order_notification_duplicates' );
+            WC()->session->__unset( 'duplicate_order_prevention_duplicates' );
         }
     }
 
@@ -108,7 +110,7 @@ class WC_Notification_Handler {
             return;
         }
 
-        $duplicates = WC()->session->get( 'wc_order_notification_duplicates', array() );
+        $duplicates = WC()->session->get( 'duplicate_order_prevention_duplicates', array() );
 
         if ( empty( $duplicates ) ) {
             return;
@@ -141,22 +143,22 @@ class WC_Notification_Handler {
         }
 
         // Localize data for JS.
-        wp_localize_script( 'wc-order-notification-js', 'wcOrderNotificationData', $modal_data );
+        wp_localize_script( 'duplicate-order-prevention-js', 'duplicateOrderPreventionData', $modal_data );
 
         // Print modal container.
         ?>
-        <div id="wc-order-notification-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div id="duplicate-order-prevention-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div class="bg-white rounded-lg shadow-lg max-w-lg w-full p-6 relative">
-                <button id="wc-order-notification-close" class="absolute top-3 right-3 text-gray-600 hover:text-gray-900" aria-label="<?php esc_attr_e( 'Close notification', 'wc-order-notification' ); ?>">
+                <button id="duplicate-order-prevention-close" class="absolute top-3 right-3 text-gray-600 hover:text-gray-900" aria-label="<?php esc_attr_e( 'Close notification', 'duplicate-order-prevention' ); ?>">
                     &times;
                 </button>
-                <h2 class="text-xl font-semibold mb-4"><?php esc_html_e( 'Duplicate Order Notification', 'wc-order-notification' ); ?></h2>
-                <div id="wc-order-notification-content" class="space-y-4">
+                <h2 class="text-xl font-semibold mb-4"><?php esc_html_e( 'Duplicate Order Notification', 'duplicate-order-prevention' ); ?></h2>
+                <div id="duplicate-order-prevention-content" class="space-y-4">
                     <!-- Content populated by JS -->
                 </div>
                 <div class="mt-6 flex justify-end space-x-4">
-                    <button id="wc-order-notification-ignore" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded">
-                        <?php esc_html_e( 'Ignore and Proceed', 'wc-order-notification' ); ?>
+                    <button id="duplicate-order-prevention-ignore" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded">
+                        <?php esc_html_e( 'Ignore and Proceed', 'duplicate-order-prevention' ); ?>
                     </button>
                 </div>
             </div>

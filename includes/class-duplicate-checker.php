@@ -4,11 +4,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Class WC_Duplicate_Checker
+ * Class Duplicate_Order_Checker
  *
  * Checks for duplicate products in open orders and recent orders.
  */
-class WC_Duplicate_Checker {
+class Duplicate_Order_Checker {
 
     /**
      * Time interval in months to check past orders.
@@ -37,7 +37,7 @@ class WC_Duplicate_Checker {
      * Check for duplicate products in open or recent orders for a user.
      *
      * @param int   $user_id    User ID.
-     * @param array $cart_items Array of WC_Cart_Item objects or array of product IDs.
+     * @param array $cart_items Array of cart items.
      *
      * @return array Array of duplicates with product IDs as keys and array of order info as values.
      */
@@ -69,9 +69,9 @@ class WC_Duplicate_Checker {
     /**
      * Extract product IDs from cart items.
      *
-     * @param array $cart_items
+     * @param array $cart_items Cart items from WooCommerce cart.
      *
-     * @return array
+     * @return array Array of product IDs.
      */
     private function extract_product_ids( $cart_items ) {
         $product_ids = array();
@@ -92,11 +92,11 @@ class WC_Duplicate_Checker {
     /**
      * Check orders by statuses for duplicate products.
      *
-     * @param int   $user_id
-     * @param array $product_ids
-     * @param array $statuses
+     * @param int   $user_id     User ID.
+     * @param array $product_ids Array of product IDs.
+     * @param array $statuses    Array of order statuses.
      *
-     * @return array
+     * @return array Array of duplicates.
      */
     private function check_orders_by_statuses( $user_id, $product_ids, $statuses ) {
         $duplicates = array();
@@ -136,7 +136,7 @@ class WC_Duplicate_Checker {
                 }
             }
         } catch ( Exception $e ) {
-            error_log( 'WC_Duplicate_Checker error: ' . $e->getMessage() );
+            error_log( 'Duplicate_Order_Checker error: ' . $e->getMessage() );
         }
 
         return $duplicates;
@@ -145,10 +145,10 @@ class WC_Duplicate_Checker {
     /**
      * Check recent completed orders within the months interval.
      *
-     * @param int   $user_id
-     * @param array $product_ids
+     * @param int   $user_id     User ID.
+     * @param array $product_ids Array of product IDs.
      *
-     * @return array
+     * @return array Array of duplicates.
      */
     private function check_recent_completed_orders( $user_id, $product_ids ) {
         $duplicates = array();
@@ -191,7 +191,7 @@ class WC_Duplicate_Checker {
                 }
             }
         } catch ( Exception $e ) {
-            error_log( 'WC_Duplicate_Checker error: ' . $e->getMessage() );
+            error_log( 'Duplicate_Order_Checker error: ' . $e->getMessage() );
         }
 
         return $duplicates;

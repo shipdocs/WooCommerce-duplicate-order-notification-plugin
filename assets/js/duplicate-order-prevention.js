@@ -1,8 +1,8 @@
 jQuery(document).ready(function($) {
-    var modal = $('#wc-order-notification-modal');
-    var content = $('#wc-order-notification-content');
-    var ignoreButton = $('#wc-order-notification-ignore');
-    var closeButton = $('#wc-order-notification-close');
+    var modal = $('#duplicate-order-prevention-modal');
+    var content = $('#duplicate-order-prevention-content');
+    var ignoreButton = $('#duplicate-order-prevention-ignore');
+    var closeButton = $('#duplicate-order-prevention-close');
 
     // Function to build the modal content from localized data
     function buildModalContent(data) {
@@ -14,13 +14,16 @@ jQuery(document).ready(function($) {
 
         data.forEach(function(item) {
             html += '<div class="border border-gray-300 rounded p-3">';
-            html += '<p class="font-semibold mb-2">Product: ' + item.product_name + '</p>';
+            html += '<p class="font-semibold mb-2">' + 
+                    wp.i18n.__('Product: ', 'duplicate-order-prevention') + 
+                    item.product_name + '</p>';
             html += '<ul class="list-disc list-inside space-y-1">';
 
             item.orders.forEach(function(order) {
                 html += '<li>';
                 html += '<a href="' + order.order_url + '" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">';
-                html += 'Order #' + order.order_id + ' (' + order.status + ')';
+                html += wp.i18n.__('Order #', 'duplicate-order-prevention') + 
+                        order.order_id + ' (' + order.status + ')';
                 html += '</a>';
                 html += '</li>';
             });
@@ -33,8 +36,8 @@ jQuery(document).ready(function($) {
     }
 
     // Show modal if duplicate data exists
-    if (typeof wcOrderNotificationData !== 'undefined' && wcOrderNotificationData.length > 0) {
-        buildModalContent(wcOrderNotificationData);
+    if (typeof duplicateOrderPreventionData !== 'undefined' && duplicateOrderPreventionData.length > 0) {
+        buildModalContent(duplicateOrderPreventionData);
         modal.removeClass('hidden');
 
         // Prevent form submission while modal is visible
@@ -49,10 +52,10 @@ jQuery(document).ready(function($) {
     // Ignore button click handler
     ignoreButton.on('click', function() {
         // Add a hidden input to the checkout form to indicate ignoring duplicates
-        if ($('input[name="wc_order_notification_ignore"]').length === 0) {
+        if ($('input[name="duplicate_order_prevention_ignore"]').length === 0) {
             $('<input>').attr({
                 type: 'hidden',
-                name: 'wc_order_notification_ignore',
+                name: 'duplicate_order_prevention_ignore',
                 value: 'yes'
             }).appendTo('form.checkout');
         }
