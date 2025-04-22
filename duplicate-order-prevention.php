@@ -6,19 +6,25 @@
  * Version:     1.0.0
  * Author:      Your Name
  * Author URI:  https://example.com
- * Text Domain: duplicate-order-prevention
- * Domain Path: /languages
+ * License:     GPL v2 or later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
+ * Text Domain: duplicate-order-prevention-for-woocommerce
  *
  * Requires at least: 5.0
- * Tested up to: 6.2
+ * Tested up to: 6.8
  * WC requires at least: 3.0
- * WC tested up to: 7.0
+ * WC tested up to: 8.0
  *
  * @package Duplicate_Order_Prevention
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly.
+}
+
+// Create the required languages directory
+if ( ! file_exists( plugin_dir_path( __FILE__ ) . 'languages' ) ) {
+    mkdir( plugin_dir_path( __FILE__ ) . 'languages', 0755 );
 }
 
 if ( ! class_exists( 'Duplicate_Order_Prevention' ) ) :
@@ -80,7 +86,7 @@ final class Duplicate_Order_Prevention {
      * Load plugin textdomain.
      */
     public function load_textdomain() {
-        load_plugin_textdomain( 'duplicate-order-prevention', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+        load_plugin_textdomain( 'duplicate-order-prevention-for-woocommerce', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
     }
 
     /**
@@ -88,7 +94,7 @@ final class Duplicate_Order_Prevention {
      */
     public function check_woocommerce_active() {
         if ( ! class_exists( 'WooCommerce' ) ) {
-            echo '<div class="error"><p><strong>' . esc_html__( 'Duplicate Order Prevention for WooCommerce requires WooCommerce to be installed and active.', 'duplicate-order-prevention' ) . '</strong></p></div>';
+            echo '<div class="error"><p><strong>' . esc_html__( 'Duplicate Order Prevention for WooCommerce requires WooCommerce to be installed and active.', 'duplicate-order-prevention-for-woocommerce' ) . '</strong></p></div>';
         }
     }
 

@@ -1,9 +1,9 @@
-=== WooCommerce Duplicate Order Notification ===
-Contributors: martinsplinter
-Donate link: none
+=== Duplicate Order Prevention for WooCommerce ===
+Contributors: yourwordpressusername
+Donate link: https://www.paypal.com/ncp/payment/WQUXP4L7KQKRE
 Tags: woocommerce, orders, notification, duplicate-orders, order-management, e-commerce
 Requires at least: 5.0
-Tested up to: 6.2
+Tested up to: 6.8
 Stable tag: 1.0.0
 Requires PHP: 7.2
 License: GPLv2 or later
@@ -13,7 +13,7 @@ Prevents duplicate purchases by notifying customers when they attempt to order p
 
 == Description ==
 
-The WooCommerce Duplicate Order Notification plugin helps prevent accidental duplicate purchases by alerting customers during checkout if they're trying to order products that are either:
+The Duplicate Order Prevention for WooCommerce plugin helps prevent accidental duplicate purchases by alerting customers during checkout if they're trying to order products that are either:
 
 1. Currently in pending/processing orders
 2. Already purchased within the last 3 months
@@ -49,7 +49,7 @@ The WooCommerce Duplicate Order Notification plugin helps prevent accidental dup
 
 == Installation ==
 
-1. Upload the plugin files to `/wp-content/plugins/wc-order-notification` directory
+1. Upload the plugin files to `/wp-content/plugins/duplicate-order-prevention-for-woocommerce` directory
 2. Activate the plugin through the 'Plugins' screen in WordPress
 3. No configuration needed - works automatically with WooCommerce checkout
 
@@ -75,7 +75,7 @@ No, the plugin is optimized to perform checks efficiently and only on the checko
 
 = Does it work with all WooCommerce themes? =
 
-Yes, the plugin uses standard WooCommerce hooks and modern CSS (Tailwind) for compatibility.
+Yes, the plugin uses standard WooCommerce hooks and modern CSS for compatibility.
 
 == Screenshots ==
 
