@@ -1,5 +1,5 @@
 === Duplicate Order Prevention for WooCommerce ===
-Contributors: yourwordpressusername
+Contributors: martinsplinter
 Donate link: https://www.paypal.com/ncp/payment/WQUXP4L7KQKRE
 Tags: woocommerce, orders, notification, duplicate-orders, order-management, e-commerce
 Requires at least: 5.0
