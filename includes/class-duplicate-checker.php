@@ -142,58 +142,58 @@ class Duplicate_Order_Checker {
         return $duplicates;
     }
 
-    /**
-     * Check recent completed orders within the months interval.
-     *
-     * @param int   $user_id     User ID.
-     * @param array $product_ids Array of product IDs.
-     *
-     * @return array Array of duplicates.
-     */
-    private function check_recent_completed_orders( $user_id, $product_ids ) {
-        $duplicates = array();
+	/**
+	 * Check recent completed orders within the months interval.
+	 *
+	 * @param int   $user_id     User ID.
+	 * @param array $product_ids Array of product IDs.
+	 *
+	 * @return array Array of duplicates.
+	 */
+	private function check_recent_completed_orders( $user_id, $product_ids ) {
+		$duplicates = array();
 
-        try {
-            $date_after = date( 'Y-m-d H:i:s', strtotime( '-' . intval( $this->months_interval ) . ' months' ) );
+		try {
+			$date_after = gmdate( 'Y-m-d H:i:s', strtotime( '-' . intval( $this->months_interval ) . ' months' ) );
 
-            $args = array(
-                'customer_id' => $user_id,
-                'status'      => 'completed',
-                'limit'       => -1,
-                'return'      => 'ids',
-                'date_after'  => $date_after,
-            );
+			$args = array(
+				'customer_id' => $user_id,
+				'status'      => 'completed',
+				'limit'       => -1,
+				'return'      => 'ids',
+				'date_after'  => $date_after,
+			);
 
-            $orders = wc_get_orders( $args );
+			$orders = wc_get_orders( $args );
 
-            if ( empty( $orders ) ) {
-                return $duplicates;
-            }
+			if ( empty( $orders ) ) {
+				return $duplicates;
+			}
 
-            foreach ( $orders as $order_id ) {
-                $order = wc_get_order( $order_id );
-                if ( ! $order ) {
-                    continue;
-                }
+			foreach ( $orders as $order_id ) {
+				$order = wc_get_order( $order_id );
+				if ( ! $order ) {
+					continue;
+				}
 
-                foreach ( $order->get_items() as $item ) {
-                    $product_id = $item->get_product_id();
-                    if ( in_array( $product_id, $product_ids, true ) ) {
-                        if ( ! isset( $duplicates[ $product_id ] ) ) {
-                            $duplicates[ $product_id ] = array();
-                        }
-                        $duplicates[ $product_id ][] = array(
-                            'order_id'  => $order_id,
-                            'order_url' => $order->get_view_order_url(),
-                            'status'    => $order->get_status(),
-                        );
-                    }
-                }
-            }
-        } catch ( Exception $e ) {
-            error_log( 'Duplicate_Order_Checker error: ' . $e->getMessage() );
-        }
+				foreach ( $order->get_items() as $item ) {
+					$product_id = $item->get_product_id();
+					if ( in_array( $product_id, $product_ids, true ) ) {
+						if ( ! isset( $duplicates[ $product_id ] ) ) {
+							$duplicates[ $product_id ] = array();
+						}
+						$duplicates[ $product_id ][] = array(
+							'order_id'  => $order_id,
+							'order_url' => $order->get_view_order_url(),
+							'status'    => $order->get_status(),
+						);
+					}
+				}
+			}
+		} catch ( Exception $e ) {
+			error_log( 'Duplicate_Order_Checker error: ' . $e->getMessage() );
+		}
 
-        return $duplicates;
-    }
+		return $duplicates;
+	}
 }
