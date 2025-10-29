@@ -2,10 +2,12 @@
 Contributors: martinsplinter
 Donate link: https://www.paypal.com/ncp/payment/WQUXP4L7KQKRE
 Tags: woocommerce, orders, notification, duplicate-orders, order-management, e-commerce
-Requires at least: 5.0
-Tested up to: 6.8
-Stable tag: 1.0.0
-Requires PHP: 7.2
+Requires at least: 6.0
+Tested up to: 6.7
+Stable tag: 1.1.0
+Requires PHP: 7.4
+WC requires at least: 7.0
+WC tested up to: 9.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -21,17 +23,19 @@ The Duplicate Order Prevention for WooCommerce plugin helps prevent accidental d
 = Key Features =
 
 * **Smart Detection** - Automatically identifies duplicate products in:
-    * Open orders (pending, on-hold, processing)
-    * Orders completed within the last 3 months
+	* Open orders (pending, on-hold, processing)
+	* Orders completed within the last 3 months
 * **User-Friendly Notifications** - Modern modal display showing:
-    * List of duplicate products
-    * Links to existing orders (opens in new tabs)
-    * Option to proceed if duplicate order is intentional
+	* List of duplicate products
+	* Links to existing orders (opens in new tabs)
+	* Option to proceed if duplicate order is intentional
 * **Seamless Integration** - Works automatically with:
-    * WooCommerce checkout
-    * Customer order history
+	* WooCommerce checkout
+	* Customer order history
+	* WooCommerce High-Performance Order Storage (HPOS)
 * **Responsive Design** - Looks great on all devices
 * **Performance Optimized** - Minimal impact on checkout speed
+* **Security First** - Includes CSRF protection with nonces and proper data sanitization
 
 = Perfect For =
 
@@ -55,9 +59,9 @@ The Duplicate Order Prevention for WooCommerce plugin helps prevent accidental d
 
 = Requirements =
 
-* WordPress 5.0 or higher
-* WooCommerce 3.0 or higher
-* PHP 7.2 or higher
+* WordPress 6.0 or higher
+* WooCommerce 7.0 or higher
+* PHP 7.4 or higher
 
 == Frequently Asked Questions ==
 
@@ -86,6 +90,21 @@ Yes, the plugin uses standard WooCommerce hooks and modern CSS for compatibility
 
 == Changelog ==
 
+= 1.1.0 =
+* Updated for WordPress 6.7 compatibility
+* Updated for WooCommerce 9.4 compatibility
+* Added WooCommerce High-Performance Order Storage (HPOS) compatibility
+* Added CSRF protection with nonces
+* Improved security: replaced deprecated date() with gmdate()
+* Enhanced internationalization support with wp_set_script_translations()
+* Added proper singleton pattern with __clone and __wakeup protection
+* Fixed text domain consistency throughout the plugin
+* Improved session handling with null checks
+* Added uninstall.php for proper cleanup
+* Updated minimum requirements to WordPress 6.0, WooCommerce 7.0, PHP 7.4
+* Code quality improvements following WordPress coding standards
+* Better error handling and validation
+
 = 1.0.0 =
 * Initial release
 * Core duplicate detection functionality
@@ -93,6 +112,9 @@ Yes, the plugin uses standard WooCommerce hooks and modern CSS for compatibility
 * Order history integration
 
 == Upgrade Notice ==
+
+= 1.1.0 =
+Updated for WordPress 6.7 and WooCommerce 9.4 with HPOS support, improved security, and better internationalization.
 
 = 1.0.0 =
 Initial release with core duplicate order detection and notification features.
