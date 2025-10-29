@@ -29,7 +29,7 @@ mkdir -p "$TEMP_DIR"
 
 # Copy plugin files
 echo "📄 Copying plugin files..."
-cp "${SCRIPT_DIR}/duplicate-order-prevention.php" "$TEMP_DIR/"
+cp "${SCRIPT_DIR}/duplicate-order-prevention-for-woocommerce.php" "$TEMP_DIR/"
 cp "${SCRIPT_DIR}/readme.txt" "$TEMP_DIR/"
 cp "${SCRIPT_DIR}/uninstall.php" "$TEMP_DIR/"
 

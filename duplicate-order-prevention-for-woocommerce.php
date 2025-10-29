@@ -14,6 +14,7 @@
  * Requires at least: 6.0
  * Tested up to: 6.8
  * Requires PHP: 7.4
+ * Requires Plugins: woocommerce
  * WC requires at least: 7.0
  * WC tested up to: 9.4
  *
@@ -25,14 +26,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Define plugin constants.
-define( 'DUPLICATE_ORDER_PREVENTION_VERSION', '1.1.0' );
-define( 'DUPLICATE_ORDER_PREVENTION_PLUGIN_FILE', __FILE__ );
-define( 'DUPLICATE_ORDER_PREVENTION_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
-define( 'DUPLICATE_ORDER_PREVENTION_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+define( 'DOPWC_VERSION', '1.1.0' );
+define( 'DOPWC_PLUGIN_FILE', __FILE__ );
+define( 'DOPWC_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define( 'DOPWC_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
-if ( ! class_exists( 'Duplicate_Order_Prevention' ) ) :
+if ( ! class_exists( 'DOPWC_Plugin' ) ) :
 
-final class Duplicate_Order_Prevention {
+final class DOPWC_Plugin {
 
 	/**
 	 * Plugin version.
@@ -44,16 +45,16 @@ final class Duplicate_Order_Prevention {
 	/**
 	 * Singleton instance.
 	 *
-	 * @var Duplicate_Order_Prevention
+	 * @var DOPWC_Plugin
 	 */
 	private static $instance = null;
 
 	/**
-	 * Main Duplicate_Order_Prevention Instance.
+	 * Main DOPWC_Plugin Instance.
 	 *
-	 * Ensures only one instance of Duplicate_Order_Prevention is loaded or can be loaded.
+	 * Ensures only one instance of DOPWC_Plugin is loaded or can be loaded.
 	 *
-	 * @return Duplicate_Order_Prevention Main instance.
+	 * @return DOPWC_Plugin Main instance.
 	 */
 	public static function instance() {
 		if ( is_null( self::$instance ) ) {
@@ -108,7 +109,7 @@ final class Duplicate_Order_Prevention {
 	 */
 	public function declare_hpos_compatibility() {
 		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
-			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', DUPLICATE_ORDER_PREVENTION_PLUGIN_FILE, true );
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', DOPWC_PLUGIN_FILE, true );
 		}
 	}
 
@@ -132,8 +133,8 @@ final class Duplicate_Order_Prevention {
 	 * Include required files.
 	 */
 	private function includes() {
-		require_once DUPLICATE_ORDER_PREVENTION_PLUGIN_DIR . 'includes/class-duplicate-checker.php';
-		require_once DUPLICATE_ORDER_PREVENTION_PLUGIN_DIR . 'includes/class-notification-handler.php';
+		require_once DOPWC_PLUGIN_DIR . 'includes/class-duplicate-checker.php';
+		require_once DOPWC_PLUGIN_DIR . 'includes/class-notification-handler.php';
 	}
 
 	/**
@@ -144,23 +145,23 @@ final class Duplicate_Order_Prevention {
 			return;
 		}
 
-		if ( class_exists( 'Duplicate_Order_Checker' ) && class_exists( 'Duplicate_Order_Handler' ) ) {
-			$duplicate_checker    = new Duplicate_Order_Checker();
-			$notification_handler = new Duplicate_Order_Handler( $duplicate_checker );
+		if ( class_exists( 'DOPWC_Duplicate_Checker' ) && class_exists( 'DOPWC_Notification_Handler' ) ) {
+			$duplicate_checker    = new DOPWC_Duplicate_Checker();
+			$notification_handler = new DOPWC_Notification_Handler( $duplicate_checker );
 		}
 	}
 }
 
 /**
- * Returns the main instance of Duplicate_Order_Prevention.
+ * Returns the main instance of DOPWC_Plugin.
  *
- * @return Duplicate_Order_Prevention Main instance.
+ * @return DOPWC_Plugin Main instance.
  */
-function duplicate_order_prevention() {
-	return Duplicate_Order_Prevention::instance();
+function dopwc_plugin() {
+	return DOPWC_Plugin::instance();
 }
 
 // Initialize the plugin.
-duplicate_order_prevention();
+dopwc_plugin();
 
 endif;

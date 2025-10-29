@@ -4,11 +4,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Class Duplicate_Order_Checker
+ * Class DOPWC_Duplicate_Checker
  *
  * Checks for duplicate products in open orders and recent orders.
  */
-class Duplicate_Order_Checker {
+class DOPWC_Duplicate_Checker {
 
     /**
      * Time interval in months to check past orders.

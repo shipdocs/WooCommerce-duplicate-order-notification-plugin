@@ -4,23 +4,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Class Duplicate_Order_Handler
+ * Class DOPWC_Notification_Handler
  *
  * Handles displaying notifications on checkout for duplicate products.
  */
-class Duplicate_Order_Handler {
+class DOPWC_Notification_Handler {
 
     /**
      * Duplicate checker instance.
      *
-     * @var Duplicate_Order_Checker
+     * @var DOPWC_Duplicate_Checker
      */
     private $duplicate_checker;
 
 	/**
 	 * Constructor.
 	 *
-	 * @param Duplicate_Order_Checker $duplicate_checker Duplicate checker instance.
+	 * @param DOPWC_Duplicate_Checker $duplicate_checker Duplicate checker instance.
 	 */
 	public function __construct( $duplicate_checker ) {
 		$this->duplicate_checker = $duplicate_checker;
