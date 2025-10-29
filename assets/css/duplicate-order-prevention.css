@@ -204,3 +204,44 @@
     transition: background-color 0.2s ease;
     cursor: pointer;
 }
+
+/* Product page duplicate notification */
+.dopwc-product-notice {
+    margin-bottom: 1.5em !important;
+    border-left: 4px solid #2ea2cc !important;
+    padding: 1em 1em 1em 1em !important;
+    background: #f7f7f7 !important;
+    position: relative;
+}
+/* Remove default WooCommerce info icon spacing for our notice */
+.dopwc-product-notice.woocommerce-info:before {
+    content: none !important;
+    display: none !important;
+}
+
+.dopwc-product-notice strong {
+    display: block;
+    margin-bottom: 0.5em;
+}
+
+.dopwc-order-item {
+    margin-top: 0.75em !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5em !important;
+}
+
+.dopwc-order-icon {
+    font-size: 1.2em !important;
+    flex-shrink: 0 !important;
+    line-height: 1 !important;
+}
+
+.dopwc-order-details {
+    flex: 1 !important;
+}
+
+.dopwc-order-details a {
+    text-decoration: none !important;
+    font-weight: 500 !important;
+}

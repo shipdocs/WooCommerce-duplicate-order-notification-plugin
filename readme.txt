@@ -4,38 +4,47 @@ Donate link: https://www.paypal.com/ncp/payment/WQUXP4L7KQKRE
 Tags: woocommerce, orders, duplicate-orders, order-management, e-commerce
 Requires at least: 6.0
 Tested up to: 6.8
-Stable tag: 1.1.0
+Stable tag: 1.2.3
 Requires PHP: 7.4
 WC requires at least: 7.0
 WC tested up to: 9.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Prevents duplicate purchases by notifying customers when they attempt to order products that are already in pending orders or recently purchased.
+Prevents duplicate purchases by showing smart notifications when customers view or order products already in their pending or recent orders.
 
 == Description ==
 
-The Duplicate Order Prevention for WooCommerce plugin helps prevent accidental duplicate purchases by alerting customers during checkout if they're trying to order products that are either:
+The Duplicate Order Prevention for WooCommerce plugin helps prevent accidental duplicate purchases by showing smart, contextual notifications when customers are viewing or ordering products that are already in their pending or recent orders.
 
-1. Currently in pending/processing orders
-2. Already purchased within the last 3 months
+= Where Notifications Appear =
+
+1. **Product Pages** - Beautiful info box showing existing orders with:
+	* Order number (clickable link)
+	* Order status
+	* Quantity ordered
+	* Order date
+2. **Add to Cart** - Instant notice when adding duplicate products
+3. **Checkout** - Final check before order completion
 
 = Key Features =
 
 * **Smart Detection** - Automatically identifies duplicate products in:
 	* Open orders (pending, on-hold, processing)
 	* Orders completed within the last 3 months
-* **User-Friendly Notifications** - Modern modal display showing:
-	* List of duplicate products
-	* Links to existing orders (opens in new tabs)
-	* Option to proceed if duplicate order is intentional
-* **Seamless Integration** - Works automatically with:
-	* WooCommerce checkout
-	* Customer order history
+* **Product Page Notifications** - Shows existing orders directly on product pages with:
+	* Clickable order links (opens in new tab)
+	* Order status and quantity
+	* Clean, professional design
+* **Add to Cart Warnings** - Immediate feedback when adding duplicates
+* **Checkout Protection** - Final duplicate check with modal display
+* **Seamless Integration** - Works with:
+	* Classic WooCommerce checkout
+	* WooCommerce Checkout Block
 	* WooCommerce High-Performance Order Storage (HPOS)
 * **Responsive Design** - Looks great on all devices
-* **Performance Optimized** - Minimal impact on checkout speed
-* **Security First** - Includes CSRF protection with nonces and proper data sanitization
+* **Performance Optimized** - Minimal impact on site speed
+* **Security First** - CSRF protection with nonces and proper data sanitization
 
 = Perfect For =
 
@@ -69,13 +78,24 @@ The Duplicate Order Prevention for WooCommerce plugin helps prevent accidental d
 
 No, the plugin requires users to be logged in as it needs to check their order history.
 
+= Where do the notifications appear? =
+
+Notifications appear in three places:
+1. On product pages - shows existing orders with details
+2. When adding to cart - instant notice about duplicates
+3. During checkout - final check before order completion
+
 = Can customers still place duplicate orders if they want to? =
 
-Yes, the plugin shows a warning but includes an "Ignore and Proceed" option for cases where duplicate orders are intentional.
+Yes, the plugin shows warnings but customers can proceed if they intentionally want to order duplicates.
 
-= Will this slow down my checkout? =
+= Does it work with the new WooCommerce Checkout Block? =
 
-No, the plugin is optimized to perform checks efficiently and only on the checkout page.
+Yes, the plugin supports both classic WooCommerce checkout and the new Checkout Block.
+
+= Will this slow down my site? =
+
+No, the plugin is optimized to perform checks efficiently with minimal performance impact.
 
 = Does it work with all WooCommerce themes? =
 
@@ -83,12 +103,26 @@ Yes, the plugin uses standard WooCommerce hooks and modern CSS for compatibility
 
 == Screenshots ==
 
-1. Duplicate order detection modal
-2. Order links in notification
-3. Mobile view of notification
-4. Checkout page integration
+1. Product page notification showing existing orders
+2. Add to cart duplicate warning
+3. Checkout duplicate detection modal
+4. Mobile view of notifications
 
 == Changelog ==
+
+= 1.2.1 =
+* Fixed product page notification formatting with improved flexbox layout
+* Better icon spacing and alignment
+
+= 1.2.0 =
+* Added product page notifications - shows existing orders directly on product pages
+* Added add-to-cart duplicate warnings with order links
+* Added support for WooCommerce Checkout Block
+* Improved notification messages with clickable order links
+* Enhanced UX with order status, quantity, and date information
+* Better visual design with flexbox layout and proper spacing
+* Removed debug logging for production readiness
+* Performance improvements
 
 = 1.1.0 =
 * Updated for WordPress 6.7 compatibility
@@ -112,6 +146,12 @@ Yes, the plugin uses standard WooCommerce hooks and modern CSS for compatibility
 * Order history integration
 
 == Upgrade Notice ==
+
+= 1.2.1 =
+Fixed product page notification formatting for better visual appearance.
+
+= 1.2.0 =
+Major UX improvement! Now shows duplicate order warnings directly on product pages with clickable order links. Added support for WooCommerce Checkout Block.
 
 = 1.1.0 =
 Updated for WordPress 6.7 and WooCommerce 9.4 with HPOS support, improved security, and better internationalization.

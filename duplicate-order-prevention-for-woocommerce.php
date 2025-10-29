@@ -2,8 +2,8 @@
 /**
  * Plugin Name: Duplicate Order Prevention for WooCommerce
  * Plugin URI:  https://github.com/shipdocs/WooCommerce-duplicate-order-notification-plugin
- * Description: Helps prevent duplicate purchases by notifying customers when they attempt to order products that are already in pending orders or recently purchased.
- * Version:     1.1.0
+ * Description: Prevents duplicate purchases by showing customers when they're viewing or ordering products that are already in their pending or recent orders. Displays smart notifications on product pages, cart, and checkout.
+ * Version:     1.2.3
  * Author:      Martin Splinter
  * Author URI:  https://github.com/shipdocs
  * License:     GPL v2 or later
@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Define plugin constants.
-define( 'DOPWC_VERSION', '1.1.0' );
+define( 'DOPWC_VERSION', '1.2.3' );
 define( 'DOPWC_PLUGIN_FILE', __FILE__ );
 define( 'DOPWC_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'DOPWC_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
@@ -40,7 +40,7 @@ final class DOPWC_Plugin {
 	 *
 	 * @var string
 	 */
-	public $version = '1.1.0';
+	public $version = '1.2.1';
 
 	/**
 	 * Singleton instance.
@@ -48,6 +48,20 @@ final class DOPWC_Plugin {
 	 * @var DOPWC_Plugin
 	 */
 	private static $instance = null;
+
+	/**
+	 * Duplicate checker instance.
+	 *
+	 * @var DOPWC_Duplicate_Checker
+	 */
+	public $duplicate_checker;
+
+	/**
+	 * Notification handler instance.
+	 *
+	 * @var DOPWC_Notification_Handler
+	 */
+	public $notification_handler;
 
 	/**
 	 * Main DOPWC_Plugin Instance.
@@ -146,8 +160,8 @@ final class DOPWC_Plugin {
 		}
 
 		if ( class_exists( 'DOPWC_Duplicate_Checker' ) && class_exists( 'DOPWC_Notification_Handler' ) ) {
-			$duplicate_checker    = new DOPWC_Duplicate_Checker();
-			$notification_handler = new DOPWC_Notification_Handler( $duplicate_checker );
+			$this->duplicate_checker    = new DOPWC_Duplicate_Checker();
+			$this->notification_handler = new DOPWC_Notification_Handler( $this->duplicate_checker );
 		}
 	}
 }
