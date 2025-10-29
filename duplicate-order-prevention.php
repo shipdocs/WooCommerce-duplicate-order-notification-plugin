@@ -12,7 +12,7 @@
  * Domain Path: /languages
  *
  * Requires at least: 6.0
- * Tested up to: 6.7
+ * Tested up to: 6.8
  * Requires PHP: 7.4
  * WC requires at least: 7.0
  * WC tested up to: 9.4
@@ -90,9 +90,6 @@ final class Duplicate_Order_Prevention {
 	 * Initialize hooks.
 	 */
 	private function init_hooks() {
-		// Load plugin textdomain for translations.
-		add_action( 'init', array( $this, 'load_textdomain' ) );
-
 		// Check WooCommerce dependency.
 		add_action( 'admin_notices', array( $this, 'check_woocommerce_active' ) );
 
@@ -113,17 +110,6 @@ final class Duplicate_Order_Prevention {
 		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
 			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', DUPLICATE_ORDER_PREVENTION_PLUGIN_FILE, true );
 		}
-	}
-
-	/**
-	 * Load plugin textdomain.
-	 */
-	public function load_textdomain() {
-		load_plugin_textdomain(
-			'duplicate-order-prevention-for-woocommerce',
-			false,
-			dirname( plugin_basename( DUPLICATE_ORDER_PREVENTION_PLUGIN_FILE ) ) . '/languages/'
-		);
 	}
 
 	/**

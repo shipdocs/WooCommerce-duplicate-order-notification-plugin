@@ -136,7 +136,7 @@ class Duplicate_Order_Checker {
                 }
             }
         } catch ( Exception $e ) {
-            error_log( 'Duplicate_Order_Checker error: ' . $e->getMessage() );
+            // Silently handle exceptions to avoid breaking checkout.
         }
 
         return $duplicates;
@@ -191,7 +191,7 @@ class Duplicate_Order_Checker {
 				}
 			}
 		} catch ( Exception $e ) {
-			error_log( 'Duplicate_Order_Checker error: ' . $e->getMessage() );
+			// Silently handle exceptions to avoid breaking checkout.
 		}
 
 		return $duplicates;

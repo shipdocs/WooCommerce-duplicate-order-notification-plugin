@@ -35,3 +35,4 @@ languages/*.mo
 # Temporary files
 /tmp/
 *.tmp
+AGENTS.md
