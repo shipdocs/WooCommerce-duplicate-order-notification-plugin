@@ -4,8 +4,8 @@ jQuery(document).ready(function($) {
 	var ignoreButton = $('#duplicate-order-prevention-ignore');
 	var closeButton = $('#duplicate-order-prevention-close');
 
-	// Use wp.i18n for translations
-	const { __ } = wp.i18n;
+	// Use wp.i18n for translations with fallback
+	const { __ } = wp.i18n || { __: function(text) { return text; } };
 
 	// Function to build the modal content from localized data
 	function buildModalContent(data) {

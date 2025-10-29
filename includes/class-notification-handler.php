@@ -83,7 +83,9 @@ class Duplicate_Order_Handler {
 		// Verify nonce for security.
 		if ( ! isset( $_POST['duplicate_order_prevention_nonce'] ) ||
 			! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['duplicate_order_prevention_nonce'] ) ), 'duplicate_order_prevention_checkout' ) ) {
-			// Nonce verification failed, but allow checkout to proceed (fail open for compatibility).
+			// Nonce verification failed. This could happen on initial checkout page load
+			// or if the form is manipulated. For user experience, we log this and continue.
+			error_log( 'Duplicate Order Prevention: Nonce verification failed for user ' . get_current_user_id() );
 			return;
 		}
 
